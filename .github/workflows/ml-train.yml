@@ -26,18 +26,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install jupyter nbconvert
 
-      # Step 4: Train model
-      - name: Train Model
+      # Step 4: Run the Jupyter Notebook
+      - name: Execute Notebook
         run: |
-          python train.py
+          jupyter nbconvert --to notebook --execute wine_quality_prediction.ipynb --output executed_notebook.ipynb
 
-      # Step 5: Evaluate model
-      - name: Evaluate Model
-        run: |
-          python evaluate.py
-
-      # Step 6: Upload artifacts (e.g., trained model file)
+      # Step 5: Upload artifacts (e.g., trained model file)
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
         with:
