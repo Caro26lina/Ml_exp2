@@ -2,8 +2,8 @@ name: Train and Evaluate ML Model
 
 on:
   push:
-    branches: [ main ]   # Runs when code is pushed to main
-  pull_request:          # Also runs when PRs are opened
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -11,29 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install jupyter nbconvert
 
-      # Step 4: Run the Jupyter Notebook
-      - name: Execute Notebook
+      - name: Run Jupyter Notebook
         run: |
           jupyter nbconvert --to notebook --execute wine_quality_prediction.ipynb --output executed_notebook.ipynb
 
-      # Step 5: Upload artifacts (e.g., trained model file)
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
         with:
