@@ -28,7 +28,7 @@ jobs:
         
       - name: Convert Notebook to Python Script
         run: |
-          jupyter nbconvert --to notebook --execute wine_quality_prediction (2).ipynb --output executed_notebook.ipynb
+          jupyter nbconvert --to notebook --execute "wine_quality_prediction (2).ipynb" --output executed_notebook.ipynb
 
       - name: Run Training and Tests
         run: |
