@@ -30,7 +30,7 @@ jobs:
 
       - name: Execute notebook
         run: |
-         jupyter nbconvert --to notebook --execute wine_quality_prediction.ipynb
+         jupyter nbconvert --to script --execute wine_quality_prediction.ipynb
 
 
       - name: Upload Model Artifact
