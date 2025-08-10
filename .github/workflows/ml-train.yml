@@ -30,7 +30,8 @@ jobs:
 
       - name: Execute notebook
         run: |
-          jupyter nbconvert --to script wine_quality_prediction.ipynb
+         jupyter nbconvert --to notebook --execute wine_quality_prediction.ipynb
+
 
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
