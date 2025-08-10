@@ -25,13 +25,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Install Jupyter
-        run: pip install notebook nbconvert
+        run: |
+          pip install notebook nbconvert ipykernel
 
       - name: Execute notebook
         run: |
-          jupyter nbconvert --to notebook --execute wine_quality_prediction.ipynb \
-            --ExecutePreprocessor.kernel_name=python3 \
-            --output executed_notebook.ipynb
+          jupyter nbconvert --to notebook --execute wine_quality_prediction.ipynb --ExecutePreprocessor.kernel_name=python3 --output executed_notebook.ipynb
 
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
