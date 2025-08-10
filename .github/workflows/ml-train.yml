@@ -1,40 +1,35 @@
-name: Train and Evaluate ML Model
+name: CI Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  train-and-evaluate:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.13'  # or the version you use locally
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Install Jupyter
+        
+      - name: Convert Notebook to Python Script
         run: |
-          pip install notebook nbconvert ipykernel
+          jupyter nbconvert --to script wine_quality_prediction.ipynb
 
-      - name: Execute notebook
+      - name: Run Training and Tests
         run: |
-         jupyter nbconvert --to script --execute wine_quality_prediction.ipynb
-
-
-      # - name: Upload Model Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: trained-model
-      #     path: model.pkl
+          python wine_quality_prediction.py
